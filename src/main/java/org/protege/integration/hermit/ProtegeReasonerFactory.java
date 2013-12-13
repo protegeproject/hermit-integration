@@ -1,4 +1,4 @@
-package edu.stanford.protege.integration.hermit;
+package org.protege.integration.hermit;
 
 import org.protege.editor.owl.model.inference.AbstractProtegeOWLReasonerInfo;
 import org.semanticweb.HermiT.Configuration;
