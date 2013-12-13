@@ -57,6 +57,12 @@
 		</dependency>
 		
 		<dependency>
+			<groupId>dk.brics.automaton</groupId>
+			<artifactId>automaton</artifactId>
+			<version>1.11-8</version>
+		</dependency>
+		
+		<dependency>
           <groupId>edu.stanford.protege</groupId>
           <artifactId>org.protege.editor.owl</artifactId>
           <version>4.3.0</version>
@@ -87,20 +93,30 @@
 				<version>2.4.0</version>
 				<extensions>true</extensions>
 					<configuration>
-					<instructions>
-						<Bundle-SymbolicName>${project.artifactId};singleton:=true</Bundle-SymbolicName>
-						<Bundle-Vendor>The Protege Development Team</Bundle-Vendor>
-						<Import-Package>org.protege.editor.owl.*;version="4.3", *</Import-Package>
-						<Include-Resource>plugin.xml, {maven-resources}</Include-Resource>
-					</instructions>
-					<executions>
-						<execution>
-							<id>bundle-manifest</id>
-							<phase>install</phase>
-							<goals>    
-								<goal>manifest</goal>
-							</goals>   
-						</execution>
+						<instructions>
+							<Bundle-SymbolicName>${project.artifactId};singleton:=true</Bundle-SymbolicName>
+							<Bundle-Vendor>The Protege Development Team</Bundle-Vendor>
+							<Export-Package>
+								${project.artifactId}*;version=${project.version}, 
+								dk.brics.automaton.*,
+								org.semanticweb.HermiT.*,
+								rationals.*
+							</Export-Package>
+							<Import-Package>
+								!org.apache.axiom.c14n.*,
+								org.protege.editor.owl.*;version="4.3", <!-- equivalent to [4.3,infinity) -->
+								*
+							</Import-Package>
+							<Include-Resource>plugin.xml, {maven-resources}</Include-Resource>
+						</instructions>
+						<executions>
+							<execution>
+								<id>bundle-manifest</id>
+								<phase>install</phase>
+								<goals>    
+									<goal>manifest</goal>
+								</goals>   
+							</execution>
 					</executions>
 				</configuration>
             </plugin>
