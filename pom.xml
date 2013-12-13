@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>org.sonatype.oss</groupId>
+		<artifactId>oss-parent</artifactId>
+		<version>7</version>
+	</parent>
+	
+	<groupId>edu.stanford.protege</groupId>
+	<artifactId>org.protege.integration.hermit</artifactId>
+	<version>1.0.0-SNAPSHOT</version>
+	<packaging>bundle</packaging>
+
+	<name>Protege HermiT Integration</name>
+    <description>Integrates the HermiT reasoner with Protege Desktop.</description>
+    <url>https://github.com/protegeproject/hermit-integration</url>
+	<organization>
+		<name>Stanford Center for Biomedical Informatics Research</name>
+		<url>http://bmir.stanford.edu/</url>
+	</organization>
+	<licenses>
+		<license>
+			<name>GNU Lesser General Public License</name>
+			<url>http://www.gnu.org/copyleft/lesser.html</url>
+		</license>
+	</licenses>    
+
+	<developers>
+		<developer>
+			<name>Timothy Redmond</name>
+			<email>tredmond@stanford.edu</email>
+		</developer>
+		<developer>
+			<name>Jennifer Vendetti</name>
+			<email>vendetti@stanford.edu</email>
+		</developer>
+	</developers>
+	
+	<scm>
+		<connection>scm:git:git@github.com:protegeproject/hermit-integration.git</connection>
+		<developerConnection>scm:git:git@github.com:protegeproject/hermit-integration.git</developerConnection>
+		<url>https://github.com/protegeproject/hermit-integration</url>
+	</scm>
+	
+	<issueManagement>
+		<system>GitHub Issues</system>
+		<url>https://github.com/protegeproject/hermit-integration/issues</url>
+	</issueManagement>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.hermit-reasoner</groupId>
+			<artifactId>org.semanticweb.hermit</artifactId>
+			<version>1.3.8.3</version>
+		</dependency>
+		
+		<dependency>
+          <groupId>edu.stanford.protege</groupId>
+          <artifactId>org.protege.editor.owl</artifactId>
+          <version>4.3.0</version>
+        </dependency>
+
+		<dependency>
+			<groupId>net.sourceforge.owlapi</groupId>
+			<artifactId>owlapi-distribution</artifactId>
+			<version>3.4.5</version>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+            <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-compiler-plugin</artifactId>
+              <version>3.0</version>
+              <configuration>
+                <source>1.6</source>
+                <target>1.6</target>
+              </configuration>
+            </plugin>
+            
+            <plugin>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>maven-bundle-plugin</artifactId>
+				<version>2.4.0</version>
+				<extensions>true</extensions>
+					<configuration>
+					<instructions>
+						<Bundle-SymbolicName>${project.artifactId};singleton:=true</Bundle-SymbolicName>
+						<Bundle-Vendor>The Protege Development Team</Bundle-Vendor>
+						<Import-Package>org.protege.editor.owl.*;version="4.3", *</Import-Package>
+						<Include-Resource>plugin.xml, {maven-resources}</Include-Resource>
+					</instructions>
+					<executions>
+						<execution>
+							<id>bundle-manifest</id>
+							<phase>install</phase>
+							<goals>    
+								<goal>manifest</goal>
+							</goals>   
+						</execution>
+					</executions>
+				</configuration>
+            </plugin>
+			
+            <plugin>
+              <artifactId>maven-eclipse-plugin</artifactId>
+              <version>2.9</version>
+              <configuration>
+                <pde>true</pde>
+              </configuration>
+            </plugin>
+		</plugins>
+	</build>
+</project>
